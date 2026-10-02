@@ -1,0 +1,46 @@
+<?php
+require_once __DIR__ . '/../includes/auth.php';
+require_login('admin');
+$user = current_user();
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    verify_csrf();
+    $statement = db()->prepare('UPDATE notifications SET is_read = 1 WHERE user_id = ?');
+    $statement->execute([$user['id']]);
+    flash('success', 'Notifications marked as read.');
+    header('Location: ' . base_url('admin/notifications.php'));
+    exit;
+}
+
+$statement = db()->prepare('SELECT * FROM notifications WHERE user_id = ? ORDER BY created_at DESC');
+$statement->execute([$user['id']]);
+$pageTitle = 'Notifications';
+require __DIR__ . '/../includes/header.php';
+?>
+<div class="page-content">
+    <div class="detail-heading">
+        <div>
+            <span class="eyebrow">Stay in the loop</span>
+            <h2>Notifications</h2>
+            <p class="muted mb-0">Updates about leave requests and team operations.</p>
+        </div>
+        <form method="post">
+            <input type="hidden" name="csrf_token" value="<?= e(csrf_token()) ?>">
+            <button class="btn btn-outline-dark" type="submit">Mark all as read</button>
+        </form>
+    </div>
+    <section class="panel">
+        <div class="mini-list">
+            <?php while ($note = $statement->fetch()): ?>
+                <div class="mini-row">
+                    <div class="mini-icon">&#9673;</div>
+                    <div>
+                        <strong><?= e($note['title']) ?><?php if (!$note['is_read']): ?> <span class="status status-approved">New</span><?php endif; ?></strong>
+                        <span><?= e($note['message']) ?> · <?= e(date('M j, Y', strtotime($note['created_at']))) ?></span>
+                    </div>
+                </div>
+            <?php endwhile; ?>
+        </div>
+    </section>
+</div>
+<?php require __DIR__ . '/../includes/footer.php'; ?>

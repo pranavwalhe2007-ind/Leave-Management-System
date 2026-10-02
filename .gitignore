@@ -1,0 +1,29 @@
+# Local configuration and secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+id_rsa
+id_ed25519
+
+# Generated files
+/vendor/
+/build/
+/dist/
+/coverage/
+/.phpunit.cache/
+/logs/
+/tmp/
+*.log
+*.tmp
+*.swp
+
+# Operating system and IDE files
+.DS_Store
+Thumbs.db
+Desktop.ini
+.idea/
+.vscode/
