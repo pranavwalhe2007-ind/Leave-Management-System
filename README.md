@@ -84,7 +84,7 @@ The helper tests cover inclusive leave-day calculations, invalid dates, URL gene
 
 `.github/workflows/ci.yml` runs PHP syntax checks, helper tests, and the HTTP startup smoke test for pushes and pull requests. `.github/workflows/codeql.yml` schedules and runs GitHub CodeQL analysis for the JavaScript assets. `.github/dependabot.yml` checks GitHub Actions for updates; the PHP app currently has no Composer dependency manifest.
 
-CI runs after this folder is uploaded to GitHub; workflow execution cannot be verified locally without a GitHub repository and Actions runner. Keep pull requests small and use descriptive commit prefixes such as `feat:`, `fix:`, `test:`, `ci:`, `build:`, `docs:`, and `chore:`.
+GitHub Actions workflow results are available in the repository's Actions tab. Keep pull requests small and use descriptive commit prefixes such as `feat:`, `fix:`, `test:`, `ci:`, `build:`, `docs:`, and `chore:`.
 
 ## Deployment readiness
 
@@ -105,7 +105,7 @@ Developer
 Git -> GitHub
           |
           +--> GitHub Actions: PHP syntax -> helper tests -> HTTP smoke test
-          +--> CodeQL: PHP source analysis
+          +--> CodeQL: JavaScript asset analysis
           |
           v
 Compatible PHP + managed MySQL hosting
