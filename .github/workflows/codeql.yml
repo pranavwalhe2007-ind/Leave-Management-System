@@ -14,7 +14,7 @@ permissions:
 
 jobs:
   analyze:
-    name: Analyze PHP source
+    name: Analyze JavaScript source
     runs-on: ubuntu-latest
     steps:
       - name: Check out source
@@ -23,7 +23,7 @@ jobs:
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v3
         with:
-          languages: php
+          languages: javascript
           build-mode: none
 
       - name: Analyze source

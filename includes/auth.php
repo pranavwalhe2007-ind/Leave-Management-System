@@ -60,7 +60,8 @@ function logout_user(): void
 
 function base_url(string $path = ''): string
 {
-    $root = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? '/')), '/');
+    $scriptName = str_replace('\\', '/', $_SERVER['SCRIPT_NAME'] ?? '/');
+    $root = rtrim(str_replace('\\', '/', dirname($scriptName)), '/');
     while (in_array(basename($root), ['employee', 'admin', 'includes'], true)) {
         $root = rtrim(str_replace('\\', '/', dirname($root)), '/');
     }
