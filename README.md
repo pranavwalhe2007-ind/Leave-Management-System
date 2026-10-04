@@ -88,9 +88,25 @@ GitHub Actions workflow results are available in the repository's Actions tab. K
 
 ## Deployment readiness
 
-There is no frontend production build output to configure. **Deployment to Vercel is not yet verified:** choose and test a Vercel-compatible PHP runtime and managed MySQL service before deployment. Do not commit a Vercel configuration until the target runtime and database connection have been tested.
+There is no frontend production build output to configure. This project is a PHP application and must be executed by a PHP-capable runtime rather than being treated as static HTML. The public Vercel deployment was incorrectly serving raw PHP source because there was no PHP runtime configuration in place.
 
-Otherwise, deploy to a host that supports PHP and MySQL directly. Configure the provider's generated HTTPS domain after deployment; no custom domain is needed.
+For Vercel, the safe approach is a container deployment that runs PHP Apache with the required `pdo_mysql` extension and reads production database credentials from environment variables only. The repository includes the minimum required deployment files for that approach:
+
+- `Dockerfile.vercel`
+- `vercel.json`
+- `.dockerignore`
+
+Set the following production variables in the Vercel environment for the deployed container:
+
+```text
+DB_HOST=your-production-mysql-host
+DB_NAME=leave_management
+DB_USER=your-limited-db-user
+DB_PASS=your-strong-production-password
+GA_MEASUREMENT_ID=G-XXXXXXXXXX
+```
+
+Do not commit real credentials to the repository or to the build output. After deployment, verify the production page headers include `Content-Type: text/html` and that the rendered login page loads instead of exposing `<?php ... ?>` source code.
 
 ## Docker
 

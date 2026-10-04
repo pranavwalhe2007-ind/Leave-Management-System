@@ -14,13 +14,25 @@ if ($user) {
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="google-site-verification" content="ocm2ul6JAdRgIVbwlETa1t1-yOjRZ9xNTbcgxpxlm3A">
+    <meta name="google-site-verification" content="ocm2ul6JAdRgIVbwlETa1t1-yOjRZ9xNTbcgxpxlm3A" />
     <title><?= e($pageTitle) ?> · Northstar Leave</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="<?= e(base_url('assets/css/style.css')) ?>">
+    <?php
+    $gaMeasurementId = getenv('GA_MEASUREMENT_ID') ?: ($_ENV['GA_MEASUREMENT_ID'] ?? '');
+    if ($gaMeasurementId !== ''):
+        ?>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=<?= e($gaMeasurementId) ?>"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', '<?= e($gaMeasurementId) ?>');
+    </script>
+    <?php endif; ?>
 </head>
 <body>
 <div class="app-shell">
