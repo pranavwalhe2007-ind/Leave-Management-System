@@ -14,6 +14,7 @@ if ($user) {
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="google-site-verification" content="ocm2ul6JAdRgIVbwlETa1t1-yOjRZ9xNTbcgxpxlm3A">
     <title><?= e($pageTitle) ?> · Northstar Leave</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
